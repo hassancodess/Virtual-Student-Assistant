@@ -26,5 +26,9 @@ namespace Virtual_Student_Assistant.Controllers
 
             return View();
         }
+        public ActionResult Login()
+        {
+            return View();
+        }
     }
 }

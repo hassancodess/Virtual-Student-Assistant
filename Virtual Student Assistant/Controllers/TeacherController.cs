@@ -10,10 +10,6 @@ namespace Virtual_Student_Assistant.Controllers
     public class TeacherController : Controller
     {
         // GET: Teacher
-        public ActionResult Login()
-        {
-            return View();
-        }
         public ActionResult Signup()
         {
             return View();
