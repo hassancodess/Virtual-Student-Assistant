@@ -45,4 +45,27 @@
     </div>
 </div>
 
+<div class="row text-center div2">
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="m-5">
+                    <img src="~/Images/essay.png" alt="Profile" width="100px" height="100px" />
+                </div>
+                <input class="btn btn-primary" type="button" value="Add Course" onclick="location.href='@Url.Action("CourseEntry", "Course")'" />
+                @*<a class="btn btn-primary" onclick="location.href='<%: Url.Action(" Autoentry", "Autos" ) %>'">Add Autos</a>*@
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="m-5">
+                    <img src="~/images/documents.png" alt="Profile" width="100px" height="100px" />
+                </div>
+                <input class="btn btn-primary" type="button" value="View Courses" onclick="location.href='@Url.Action("ViewCourses", "Course")'" />
+            </div>
+        </div>
+    </div>
+</div>
 

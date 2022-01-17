@@ -19,31 +19,78 @@ namespace Virtual_Student_Assistant.Controllers
             if (Session["ID"] != null && Session["Name"] != null && Session["Email"] != null)
             {
                 TempData["ID"] = int.Parse(Session["ID"].ToString());
+                TempData["Name"] = Session["Name"].ToString();
+                ViewBag.Courses = GetCourses();
                 return View();
             }
             return RedirectToAction("Login", "Home");
         }
-        [HttpPost]
 
+        private List<SelectListItem> GetCourses()
+        {
+            List<SelectListItem> Clist = new List<SelectListItem>();
+            con.Open();
+            string query = "select * from Courses where T_ID= '" + Session["ID"] + "'";
+            SqlCommand cmd = new SqlCommand(query, con);
+            SqlDataReader sdr = cmd.ExecuteReader();
+            while (sdr.Read())
+            {
+                Clist.Add(new SelectListItem
+                {
+                    Text = sdr[2].ToString(),
+                    Value = sdr[2].ToString()
+                });
+            }
+
+            sdr.Close();
+            con.Close();
+
+            return Clist;
+        }
+
+        [HttpPost]
         public ActionResult ActivityEntry(Activity a, string starttime, string endtime)
         {
-            a.T_ID = (int)TempData["ID"];
-
-            var aext = new[] { ".pdf", ".docx" };
-            var fext = Path.GetExtension(a.File.FileName); //s.image.FileName => 123.jpg      // .jpg
-            if (aext.Contains(fext))
+            try
             {
-                var folderpath = Path.Combine(Server.MapPath("~/images"), (TempData["ID"]  + a.File.FileName + fext));
-                a.File.SaveAs(folderpath);
-                string DBpath = "/images/" + TempData["ID"] + a.File.FileName + fext; // ~/images/123.jpg
-                con.Open();
-                string query = "insert into Activity(t_id,name,description,semester,filepath,starttime,endtime) values ('" + a.T_ID + "','" + a.Name + "','" + a.Description + "','" + a.Semester + "', '" + DBpath + "', '"+starttime+"', '"+endtime+"')";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.ExecuteNonQuery();
-                con.Close();
+                a.Semester = GetSemester(a.Course);
+                a.T_ID = (int)TempData["ID"];
+
+                var aext = new[] { ".pdf", ".docx" };
+                var fext = Path.GetExtension(a.File.FileName); //s.image.FileName => 123.jpg      // .jpg
+                if (aext.Contains(fext))
+                {
+                    var folderpath = Path.Combine(Server.MapPath("~/activity"), (TempData["ID"] + " " + TempData["Name"] + " " + a.Semester + " " + a.File.FileName + fext));
+                    a.File.SaveAs(folderpath);
+                    string DBpath = "/activity/" + TempData["ID"] + " " + TempData["Name"] + " " + a.Semester + " " + a.File.FileName + fext; // ~/activity/3 Amir Rashid 5 Assignment 4
+                    con.Open();
+                    string query = "insert into Activity(t_id,name,description,course,semester,filepath,starttime,endtime) values ('" + a.T_ID + "','" + a.Name + "','" + a.Description + "','" + a.Course + "','" + a.Semester + "', '" + DBpath + "', '" + starttime + "', '" + endtime + "')";
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception)
+            {
+                return View();
             }
 
             return View();
+        }
+
+        private int GetSemester(string ID)
+        {
+            con.Open();
+            string query = "select Semmester from Courses where Name='" + ID + "' ";
+            SqlCommand cmd = new SqlCommand(query, con);
+            SqlDataReader sdr = cmd.ExecuteReader();
+            sdr.Read();
+            int Semester = int.Parse(sdr[0].ToString());
+
+
+            sdr.Close();
+            con.Close();
+            return Semester;
         }
 
         public ActionResult ActivityData()

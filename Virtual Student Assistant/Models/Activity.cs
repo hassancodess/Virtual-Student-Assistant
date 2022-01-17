@@ -11,6 +11,7 @@ namespace Virtual_Student_Assistant.Models
         public int T_ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string Course{ get; set; }
         public int Semester { get; set; }
         public string filePath { get; set; }
         public string StartTime { get; set; }
