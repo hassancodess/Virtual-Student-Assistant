@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "StudentHome";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <style>
+        .div2 {
+            margin-top: 50px;
+            margin-left: 25%;
+        }
+
+        input {
+            margin-top: 10px;
+        }
+        b{
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<br />
+<b>Student ID : </b>&emsp;@Session["ID"] &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+<b>Student Name : </b>&emsp;@Session["Name"] &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+<b>Student Email : </b>&emsp;@Session["Email"] &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+<b>Student Semester: </b>&emsp;@Session["Semester"]
+<br />
+<br />
+<div class="row text-center div2">
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="m-5">
+                    <img src="~/Images/documents.png" alt="Profile" width="100px" height="100px" />
+                </div>
+                <input class="btn btn-primary" type="button" value="View Activity" onclick="location.href='@Url.Action("ViewActivity", "Student")'" />
+                @*<a class="btn btn-primary" onclick="location.href='<%: Url.Action(" Autoentry", "Autos" ) %>'">Add Autos</a>*@
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="m-5">
+                    <img src="~/images/search.png" alt="Profile" width="100px" height="100px" />
+                </div>
+                <input class="btn btn-primary" type="button" value="Search Activity" onclick="location.href='@Url.Action("SearchActivity", "Student")'" />
+            </div>
+        </div>
+    </div>
+</div>

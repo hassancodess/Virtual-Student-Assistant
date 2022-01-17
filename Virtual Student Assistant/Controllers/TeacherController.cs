@@ -10,7 +10,27 @@ namespace Virtual_Student_Assistant.Controllers
     public class TeacherController : Controller
     {
         // GET: Teacher
-        public ActionResult Signup()
+        public ActionResult TeacherHome()
+        {
+            if (Session["ID"] != null && Session["Name"] != null && Session["Email"] != null)
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "Home");
+        }
+        [HttpGet]
+        public ActionResult AddActivity()
+        {
+            TempData["T_ID"] = int.Parse(Session["ID"].ToString());
+            return View();
+        }        
+        [HttpPost]
+        public ActionResult AddActivity(Activity a)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ViewActivity()
         {
             return View();
         }

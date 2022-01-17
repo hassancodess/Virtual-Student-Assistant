@@ -10,6 +10,6 @@ namespace Virtual_Student_Assistant.Models
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string Semester { get; set; }
+        public int Semester { get; set; }
     }
 }

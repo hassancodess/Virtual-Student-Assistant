@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Virtual_Student_Assistant.Models.Activity>
+
+@{
+    ViewBag.Title = "ActivityData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<b>Teacher ID : </b>&emsp;@Session["ID"] &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+<b>Teacher Name : </b>&emsp;@Session["Name"] &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+<b>Teacher Email : </b>&emsp;@Session["Email"]
+<br />
+<br />
+<h2>ActivityData</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.A_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.T_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Semester)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.filePath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.A_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.T_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Semester)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.filePath)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndTime)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>
